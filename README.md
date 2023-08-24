@@ -1,5 +1,4 @@
-# Quant Interview (Set 1)
-​
+
 # 项目描述
 根据提供的数据文件，进行数据分析，模型拟合。
 
@@ -96,24 +95,3 @@ InputNames里的因子名称对应.xy文件里的因子名称（见demo.py)，�
 
 ​
 7、总结以上所作的数据分析。
-
-### 选做
-1、评估模型在样本外每天的表现差异的原因。
-
-
-2、分多步骤进行模型拟合，或者多模型混合是否有意义？
-
-
-3、是否了解online learning？如果是，可做尝试。如果否，不必尝试。
-（PS: 需要了解拟合Y和真实Y的差异。请联系面试官提供更多信息。）
-
-
-4、是否了解Multivariate Time Series？如果是，可做尝试。如果否，不必尝试。
-（PS: 需要了解拟合Y和真实Y的差异。请联系面试官提供更多信息。）
-
-
-
-### 备注：
-常见线性模型：OLS, Ridge, Lasso, Lars, PLS, Logistic ...
-
-常见非线性模型：LightGBM, Random Forest, Neural Network related ...
