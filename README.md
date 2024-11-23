@@ -1,97 +1,54 @@
+# Task Description
+Analyze provided data files, preprocess as necessary, and perform model fitting to compare results.
 
-# 项目描述
-根据提供的数据文件，进行数据分析，模型拟合。
+## File Descriptions
 
-​
-# 文件描述
-## 数据文件：
-**YYYYMMDD.xy**: 每个文件对应一天的数据，文件名是日期.xy。
+### Data Files
+- **YYYYMMDD.xy**: Each file contains a day's worth of data, with the filename corresponding to the date (e.g., 20220425.xy).
 
-## 辅助文件：
-**xy_parser.py**: 包含用来读取xy格式文件的方法，把xy文件里包含的数据信息转成Python Pandas DataFrame格式。
+### Supporting Files
+1. **xy_parser.py**: Contains methods to parse `.xy` files and convert the data into a Pandas DataFrame.
+2. **demo.py**: Demonstrates how to use `xy_parser.py`.
+3. **baseline_model.json**: Provides a reference linear model for comparison, including:
+   - **Coefficients**: Feature coefficients.
+   - **Constant**: Intercept.
+   - **InputNames**: Feature names (corresponding to column names in `.xy` files).
 
-**demo.py**: 包含如何调用xy_parser.py的使用方法。
+### `.xy` Data Format
+- Columns:
+  - `Timestamp`: Time information.
+  - `X0` to `X149`: Features.
+  - `Y`: Target variable (to be predicted).
 
-**baseline_model.json**: 提供了一个线性模型作为参考。
-
-InputNames里的因子名称对应.xy文件里的因子名称（见demo.py)，系数Coefficients和因子名称InputNames是一一对应关系。Constant是截距项。
-
-参考模型给出的Y值 = Constant + Coefficients[0] * X0 + ... Coefficients[i] * Xi。X值从.xy文件获取。注：xy dataframe的列名称和baseline_model.json里的InputNames相同，但是顺序并不一定一致。
-
+### File Structure
 ```
-[仅供格式展示, 具体数值见文件]
-[字段'Coefficients'是因子系数，'Constant'为模型截距，'InputNames'为每个因子的名字]
-{
-    "Description": {
-        "DataFiles": [
-            ...
-        ]
-    },
-    "Constant": -0.12345679,
-    "Coefficients": [
-        0.1,
-        0.2,
-        ...
-    ],
-    "InputNames": [
-        "X1",
-        "X2",
-        ...
-    ]
-}
-
-以此为例：参考模型给出的预测值Y = -0.123456789 + 0.1 * X1 + 0.2 * X2 + ...
-
-```
-
-从xy文件提取出的数据展示：
-```
-[第一列Timestamp是时间戳，非因子值，第2-151列是具体因子值， 152列为预测目标y的真实值。其中2-151列的header为因子名称]
-[Y为需要预测的值，包含了未来信息。不可以直接或者间接作为因子。方便起见，以下列名称有做重命名]
-             Timestamp        X0        X1   ...      X148      X149          Y
-0      1650850528720862  0.029391  0.169158  ...  0.609945  0.519002  18.087070
-1      1650850529223016  0.195994  0.198575  ...  0.571814  0.641250  18.019770
-...                 ...       ...       ...  ...       ...       ...        ...
-24985  1650868918634074 -0.287679 -0.020889  ...  0.019581 -0.445845  -1.689340
-24986  1650868919132247 -0.232461 -0.020325  ...  0.190038 -0.444029  -2.105581
-```
-
-所有文件：
-```
-├── [1.3M]  baseline_model.json
-├── [ 698]  demo.py
-├── [   0]  __init__.py
-├── [5.2K]  README.md
-├── [4.6K]  xy_parser.py
-├── [4.0K]  xy_train [训练数据]
-│   ├── [ 30M]  20220425.xy
-│   ├── [ 30M]  20220426.xy
-│   ├── ...
-└── [4.0K]  xy_validate [验证数据][备注：只提供了部分验证数据]
-    ├── [ 29M]  20220701.xy
+├── baseline_model.json
+├── demo.py
+├── xy_parser.py
+├── xy_train/ [Training data]
+│   ├── 20220425.xy
+│   ├── 20220426.xy
+│   ├── ...
+└── xy_validate/ [Validation data]
+    ├── 20220701.xy
     ├── ...
-
-
 ```
-​​
-# 任务
-​
-1、分析xy文件中的因子值。评估是否需要对原始数据进行处理或者清洗。
 
+---
 
-2、分析xy文件中的目标预测值（Y）的特征。
+# Tasks
 
-
-3、分析因子值和目标预测值Y的关系。
-
-​
-4、用1-2个线性模型，利用样本内数据的X和Y：20220425-20220630，对样本外202207**进行预测，并与实际目标预测Y做比较并分析。
-
-​
-5、用1-2个非线性模型，利用样本内数据的X和Y：20220425-20220630，对样本外202207**进行预测，并与实际目标预测Y做比较并分析。
-
-
-6、把4和5步的模型和提供的baseline模型在样本内和样本外做对比。
-
-​
-7、总结以上所作的数据分析。
+1. **Feature Analysis**: 
+   - Analyze features from `.xy` files to determine whether preprocessing or cleaning is required.
+2. **Target Variable Analysis**: 
+   - Examine the characteristics of the target variable, `Y`.
+3. **Feature-Target Relationship**:
+   - Investigate the relationships between features and `Y`.
+4. **Linear Model Fitting**:
+   - Train 1-2 linear models on training data (`20220425-20220630`), validate on unseen data (`202207`), and compare with actual `Y` values.
+5. **Nonlinear Model Fitting**:
+   - Train 1-2 nonlinear models using the same training and validation sets, and compare predictions with actual `Y`.
+6. **Model Comparison**:
+   - Compare models (linear, nonlinear, and baseline) for in-sample and out-of-sample performance.
+7. **Summary**:
+   - Summarize findings from the above steps.
